@@ -7,14 +7,14 @@
 ### 前置条件
 
 - Node.js（与 Vue 3 兼容的版本）
-- npm 或 yarn
+- npm
 
 ### 安装
 
 1. 克隆仓库：
    ```
-   git clone [仓库地址]
-   cd suanlituijian
+   git clone https://github.com/panpan02222/SuanliTuijian.git
+   cd SuanliTuijian
    ```
 
 2. 安装依赖：
