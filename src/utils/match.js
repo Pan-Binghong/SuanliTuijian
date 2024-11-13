@@ -18,6 +18,7 @@ export function matchChips(userInput) {
     let score = 0;
     const totalParams = Object.keys(allParams).length;
     const comparisonResults = [];
+    const proximityScores = [];
 
     for (const [key, param] of Object.entries(allParams)) {
       const userValue = userInput[key];
@@ -34,6 +35,8 @@ export function matchChips(userInput) {
         if (parseFloat(chipValue) >= parseFloat(userValue)) {
           comparisonResult += " ✅";
           score++;
+          const proximityScore = Math.abs(parseFloat(chipValue) - parseFloat(userValue));
+          proximityScores.push(proximityScore);
         } else {
           comparisonResult += " ❌";
           isMatch = false;
@@ -57,7 +60,8 @@ export function matchChips(userInput) {
       const matchPercentage = (score / totalParams) * 100;
       console.log(comparisonResults.join('\n'));
       console.log(`匹配得分: ${matchPercentage.toFixed(2)}%`);
-      matchedChips.push({ chipName, ...chipInfo, matchPercentage });
+      const averageProximityScore = proximityScores.length > 0 ? proximityScores.reduce((a, b) => a + b, 0) / proximityScores.length : Infinity;
+      matchedChips.push({ chipName, ...chipInfo, matchPercentage, averageProximityScore });
     } else {
       console.log("不符合条件，跳过该芯片");
     }
@@ -66,8 +70,13 @@ export function matchChips(userInput) {
 
   console.log(`符合条件的芯片数: ${matchedChips.length}`);
   
-  // 按匹配得分降序排序并返回所有符合要求的算力卡
-  const sortedMatches = matchedChips.sort((a, b) => b.matchPercentage - a.matchPercentage);
+  // Sort by match percentage, then by proximity score
+  const sortedMatches = matchedChips.sort((a, b) => {
+    if (b.matchPercentage === a.matchPercentage) {
+      return a.averageProximityScore - b.averageProximityScore;
+    }
+    return b.matchPercentage - a.matchPercentage;
+  });
 
   return sortedMatches.length > 0 ? sortedMatches : null;
 }

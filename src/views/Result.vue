@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="button-group">
-          <button class="action-button" @click="goToSearch">算力卡数据库</button>
+          <button class="action-button database-button" @click="goToSearch">算力卡数据库</button>
           <button class="action-button export-button" @click="exportData">导出为Excel</button>
         </div>
       </div>
@@ -63,7 +63,7 @@ export default {
     const models = ref([]); // 用于存储型号
     const fields = computed(() => {
       // 修改这里，即使没有模型也返回模板
-      return models.value.some(model => chipData[model]["消费级"] === "是")
+      return models.value.some(model => chipData[model]["Consumption"] === "是")
         ? consumerGradeTemplate
         : displayTemplate;
     });
@@ -125,7 +125,7 @@ export default {
     };
 
     const templateFields = computed(() => {
-      return models.value.some(model => chipData[model]["消费级"] === "是")
+      return models.value.some(model => chipData[model]["Consumption"] === "是")
         ? consumerGradeTemplate
         : displayTemplate;
     });
@@ -169,11 +169,12 @@ export default {
   justify-content: center;
   font-family: Arial, sans-serif;
   padding: 20px;
-  background-image: url('../assets/ResultBackground.png');
+  background-image: url('../assets/background/ResultBackground.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   min-height: 100vh;
+  padding-top: 60px;
 }
 
 .table-container {
@@ -271,10 +272,12 @@ export default {
   width: 100%;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(32, 33, 36, 0.28);
+  box-shadow: 0 -4px 6px rgba(32, 33, 36, 0.28);
   z-index: 1;
-  overflow: hidden;
-  top: 100%;
+  overflow-y: auto;
+  max-height: 200px;
+  bottom: 100%;
+  margin-bottom: 5px;
 }
 
 .suggestion-item {
@@ -288,6 +291,9 @@ export default {
 }
 
 .button-group {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   margin-top: 20px;
 }
 
@@ -301,12 +307,28 @@ export default {
   font-size: 1em;
   font-weight: 500;
   transition: all 0.3s ease;
-  margin: 0 10px;
+  margin-right: 10px;
 }
 
 .action-button:hover {
   background-color: #0077ed;
   transform: scale(1.05);
+}
+
+.database-button {
+  background-color: #34c759;
+}
+
+.database-button:hover {
+  background-color: #2cbd4e;
+}
+
+.export-button {
+  background-color: #ff9500;
+}
+
+.export-button:hover {
+  background-color: #ffab2e;
 }
 
 .spacer {

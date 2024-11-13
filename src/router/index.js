@@ -3,6 +3,8 @@ import Home from '../views/Home.vue'
 import RecommendationForm from '../views/RecommendationForm.vue'
 import ChipSearch from '../views/ChipSearch.vue'
 import Result from '../views/Result.vue'; // Ensure the path is correct
+import UploadExcel from '../views/UploadExcel.vue' // Add this line
+
 
 const routes = [
   {
@@ -24,6 +26,21 @@ const routes = [
     path: '/result',
     name: 'Result',
     component: Result
+  },
+  {
+    path: '/zhao',
+    name: 'UploadExcel',
+    component: UploadExcel
+  },
+  {
+    path: '/gpu_calculator',
+    name: 'gpu',
+    component: () => import('../views/GpuCalculator.vue')
+  },
+  {
+    path: '/ib_calculator',
+    name: 'ib',
+    component: () => import('../views/NetworkCalculator.vue')
   }
 ]
 

@@ -1,73 +1,43 @@
 <template>
   <div class="home-container">
     <div class="glass-panel">
-      <h1 class="title">Pan自研工具</h1>
-      <div class="button-group">
-        <button class="action-button" @click="goToRecommendation">算力卡推荐</button>
-      </div>
-
-      <!-- Compute card search functionality -->
-      <div class="search-container">
-        <div class="input-wrapper">
-          <input class="input" v-model="searchQuery" placeholder="请输入算力卡型号" @input="onInput"/>
-          <!-- Move suggestions here, below the input -->
-          <div v-if="suggestions.length > 0" class="suggestions">
-            <div v-for="suggestion in suggestions" :key="suggestion" @click="selectSuggestion(suggestion)" class="suggestion-item">
-              {{ suggestion }}
-            </div>
-          </div>
-        </div>
-        <button class="search-button" @click="search">查询</button>
-      </div>
-
-      <!-- Error message -->
-      <div v-if="errorMessage" class="error-message">
-        {{ errorMessage }}
+      <h1 class="title">上海联通智能算力评估助手</h1>
+      <div class="button-grid">
+        <button class="action-button" @click="goToRecommendation">
+          <span class="button-text">算力卡推荐</span>
+          <span class="button-icon"><i class="fas fa-microchip"></i></span>
+        </button>
+        <button class="action-button" @click="goToSearch">
+          <span class="button-text">算力卡查询</span>
+          <span class="button-icon">&#x1F50D;</span>
+        </button>
+        <button class="action-button" @click="goToGpuCalculator">
+          <span class="button-text">算力计算</span>
+          <span class="button-icon"><i class="fas fa-calculator"></i></span>
+        </button>
+        <button class="action-button" @click="goToIbCalculator">
+          <span class="button-text">IB组网计算</span>
+          <span class="button-icon"><i class="fas fa-network-wired"></i></span>
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import RecommendationForm from '../components/RecommendationForm.vue'
-import chipData from '../utils/chipData/chipDatav3.json';  // Adjust this path to your setup  // Adjust this path to your setup
-import { searchChips } from '../utils/searchUtils.js';  // Adjust this path to your setup
-
 export default {
-  data() {
-    return {
-      searchQuery: '', // Stores input content
-      suggestions: [], // Stores the suggestion list
-      errorMessage: '', // Error message
-    };
-  },
   methods: {
     goToRecommendation() {
       this.$router.push('/recommendationForm');
     },
-    
-    // Function to handle the search functionality
-    search() {
-      console.log('Searching for:', this.searchQuery);  // Log the search query for debugging
-      if (chipData[this.searchQuery]) {
-        // If chip exists, proceed to the result page
-        this.errorMessage = ''; // Clear any previous error message
-        this.$router.push({ path: '/result', query: { query: this.searchQuery } });  // Adjust this route according to your routing setup
-      } else {
-        // If chip doesn't exist, show an error message
-        this.errorMessage = '没有找到该型号，如需添加请联系管理员';
-      }
+    goToSearch() {
+      this.$router.push('/result');
     },
-
-    // Function to handle suggestions based on input
-    onInput() {
-      this.suggestions = searchChips(this.searchQuery);
+    goToGpuCalculator() {
+      this.$router.push('/gpu_calculator');
     },
-
-    // Function to handle when a suggestion is selected
-    selectSuggestion(suggestion) {
-      this.searchQuery = suggestion;
-      this.suggestions = [];
+    goToIbCalculator() {
+      this.$router.push('/ib_calculator');
     },
   },
 };
@@ -82,7 +52,7 @@ export default {
   min-height: 100vh;
   width: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  background-image: url('../assets/background.jpg');
+  background-image: url('../assets/background/background.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -101,7 +71,7 @@ export default {
   box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
   border: 1px solid rgba(255, 255, 255, 0.18);
   width: 80%;
-  max-width: 500px;
+  max-width: 700px;
 }
 
 .title {
@@ -112,26 +82,72 @@ export default {
   text-align: center;
 }
 
-.button-group {
-  margin-bottom: 30px;
-  text-align: center;
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+  padding: 0 20px;
 }
 
 .action-button {
-  background-color: #0071e3;
+  width: 100%;
+  margin: 10px 0;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0071e3, #005bb5);
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 20px;
+  border-radius: 50px;
   cursor: pointer;
-  font-size: 1em;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition: all 0.4s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .action-button:hover {
-  background-color: #0077ed;
+  background: linear-gradient(135deg, #005bb5, #0071e3);
+  transform: scale(1.08);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.action-button:active {
   transform: scale(1.05);
+}
+
+.action-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+  transform: skewX(-30deg);
+}
+
+.action-button:hover::before {
+  left: 100%;
+}
+
+.button-text {
+  font-size: 1.1em;
+  margin-right: 8px;
+}
+
+.button-icon {
+  font-size: 1.5em;
+  transition: transform 0.4s ease-in-out;
+}
+
+.action-button:hover .button-icon {
+  transform: translateX(8px);
 }
 
 .search-container {
@@ -210,5 +226,20 @@ export default {
   margin-top: 20px;
   font-weight: 500;
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .button-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .glass-panel {
+    width: 90%;
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 1.8em;
+  }
 }
 </style>

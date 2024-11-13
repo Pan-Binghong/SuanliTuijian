@@ -156,6 +156,16 @@ export default {
 }
 </script>
 
+<style>
+/* 添加全局样式 */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100vh;
+}
+</style>
+
 <style scoped>
 .ios-container {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;

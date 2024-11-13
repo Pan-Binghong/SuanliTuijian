@@ -159,7 +159,7 @@ export const parameterTemplate = {
       type: "float"
     },
     consumerGrade: {
-      label: "消费级",
+      label: "Consumption",
       type: "select",
       options: ["是", "-"]
     },

@@ -88,7 +88,7 @@
             <li v-for="chip in recommendedChips" :key="chip">
               <router-link :to="{ name: 'Result', query: { query: chip } }" class="chip-link">
                 {{ chip }}
-                <img src="../assets/search.png" alt="Search" class="link-icon">
+                <img src="../assets/icons/search.png" alt="Search" class="link-icon">
               </router-link>
             </li>
           </ul>
@@ -172,20 +172,26 @@ export default {
 .page-wrapper {
   min-height: 100vh;
   width: 100%;
-  background-image: url('../assets/background-2.png');
+  background-image: url('../assets/background/background-2.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding: 2rem 0;
+  overflow-y: auto;
 }
 
 .form-container {
   width: 100%;
   max-width: 800px;
-  margin: 2rem auto;
+  max-height: 90vh;
+  margin: 0 auto;
   padding: 2rem;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .apple-form {
@@ -196,6 +202,8 @@ export default {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   width: 100%;
   max-width: 750px;
+  margin: 0 auto;
+  /* 移除之前可能存在的高度限制 */
 }
 
 .form-grid {
@@ -330,7 +338,7 @@ input:focus, select:focus {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: rgba(255, 255, 255, 0.8);
   display: flex;
   flex-direction: column;
@@ -354,13 +362,17 @@ input:focus, select:focus {
 }
 
 @media (max-width: 600px) {
+  .page-wrapper {
+    padding: 1rem 0;
+  }
+
   .form-container {
     padding: 1rem;
   }
 
   .apple-form {
     padding: 1rem;
-    max-width: 100%;
+    margin: 0;
   }
 
   .form-grid {
@@ -560,7 +572,7 @@ label > span:first-child {
   content: "";
   height: 27px;
   width: 27px;
-  left: 2px;
+  left: 2px; /* 调整顶部位置 */
   top: 2px; /* 调整顶部位置 */
   background-color: #ffffff;
   border-radius: 50%;

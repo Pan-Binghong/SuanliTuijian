@@ -18,7 +18,7 @@ export const displayTemplate = {
 
 export const consumerGradeTemplate = {
   ...displayTemplate,
-  "消费级": [
+  "Consumption": [
     "CUDA core数量",
     "Tensor core数量",
     "RT core数量",
