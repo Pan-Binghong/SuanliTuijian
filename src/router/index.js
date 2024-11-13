@@ -4,7 +4,7 @@ import RecommendationForm from '../views/RecommendationForm.vue'
 import ChipSearch from '../views/ChipSearch.vue'
 import Result from '../views/Result.vue'; // Ensure the path is correct
 import UploadExcel from '../views/UploadExcel.vue' // Add this line
-
+import MemoryCalculator from '../views/MemoryCalculator.vue'
 
 const routes = [
   {
@@ -41,6 +41,11 @@ const routes = [
     path: '/ib_calculator',
     name: 'ib',
     component: () => import('../views/NetworkCalculator.vue')
+  },
+  {
+    path: '/memory_calculator',
+    name: 'memory',
+    component: MemoryCalculator
   }
 ]
 

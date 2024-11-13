@@ -15,6 +15,10 @@
           <span class="button-text">算力计算</span>
           <span class="button-icon"><i class="fas fa-calculator"></i></span>
         </button>
+        <button class="action-button" @click="goToMemoryCalculator">
+          <span class="button-text">显存计算</span>
+          <span class="button-icon"><i class="fas fa-memory"></i></span>
+        </button>
         <button class="action-button" @click="goToIbCalculator">
           <span class="button-text">IB组网计算</span>
           <span class="button-icon"><i class="fas fa-network-wired"></i></span>
@@ -38,6 +42,9 @@ export default {
     },
     goToIbCalculator() {
       this.$router.push('/ib_calculator');
+    },
+    goToMemoryCalculator() {
+      this.$router.push('/memory_calculator');
     },
   },
 };
